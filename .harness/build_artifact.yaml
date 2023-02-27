@@ -1,0 +1,37 @@
+pipeline:
+  name: build artifact
+  identifier: build_artifact
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: gitconnector
+        build: <+input>
+  stages:
+    - stage:
+        name: build artifact
+        identifier: build_artifact
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Windows
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: Git Clone_1
+                  identifier: GitClone_1
+                  spec:
+                    connectorRef: python_deployment_hub
+                    build:
+                      type: branch
+                      spec:
+                        branch: main
